@@ -51,13 +51,34 @@
       opacity:.9;
       margin:6px 0;
     }
+    .langbar{
+      display:flex;
+      gap:10px;
+      margin:10px 0 14px 0;
+    }
+    .langbar button{
+      width:auto;
+      padding:6px 10px;
+      border:1px solid rgba(215,255,221,.25);
+      background:rgba(0,0,0,.25);
+      color:#d7ffdd;
+      cursor:pointer;
+    }
+    .langbar button:hover{
+      background:rgba(255,255,255,.06);
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Trusting Trust – Demo</h1>
+    <h1 data-i18n="title">Trusting Trust – Demo</h1>
 
-    <p class="note">
+    <div class="langbar">
+      <button id="lang-it" type="button">ITA</button>
+      <button id="lang-en" type="button">ENG</button>
+    </div>
+
+    <p class="note" data-i18n="intro">
       Demo <strong>divulgativa e difensiva</strong>.  
       Mostra perché non basta leggere il sorgente: è fondamentale verificare
       <em>ciò che viene realmente eseguito</em> (toolchain, build, supply-chain).
@@ -65,18 +86,18 @@
 
     <div id="status"></div>
 
-    <input id="name" placeholder="Scrivi un nome (prova: ken)" />
-    <button id="run">Esegui</button>
+    <input id="name" data-i18n-placeholder="placeholder" placeholder="Scrivi un nome (prova: ken)" />
+    <button id="run" data-i18n="run">Esegui</button>
 
     <div id="out" class="note"></div>
 
     <hr />
 
-    <button id="show">Mostra sorgente vs build</button>
+    <button id="show" data-i18n="show">Mostra sorgente vs build</button>
 
     <div class="hash">
-      <div>SHA-256 app.src.js: <span id="hashSrc">–</span></div>
-      <div>SHA-256 app.js: <span id="hashBuilt">–</span></div>
+      <div><span data-i18n="hash_src">SHA-256 app.src.js</span>: <span id="hashSrc">–</span></div>
+      <div><span data-i18n="hash_built">SHA-256 app.js</span>: <span id="hashBuilt">–</span></div>
       <div id="hashNote">–</div>
     </div>
 
