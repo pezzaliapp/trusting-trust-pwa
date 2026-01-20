@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trusting Trust – PWA Demo</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0b0f0d">
+  <style>
+    body { background:#0b0f0d; color:#d7ffdd; font-family:system-ui; margin:0; }
+    .wrap { max-width:900px; margin:auto; padding:20px; }
+    input, button, textarea { width:100%; margin:6px 0; padding:8px; }
+    textarea { height:200px; font-family:monospace; }
+    .row { display:flex; gap:10px; }
+    .row > * { flex:1; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Trusting Trust – Demo</h1>
+    <p>
+      Se non controlli la toolchain, non controlli il risultato.
+    </p>
+
+    <div id="status"></div>
+
+    <input id="name" placeholder="Scrivi un nome (prova: ken)" />
+    <button id="run">Esegui</button>
+
+    <div id="out"></div>
+
+    <hr />
+
+    <button id="show">Mostra sorgente vs build</button>
+    <div class="row">
+      <textarea id="src" readonly></textarea>
+      <textarea id="built" readonly></textarea>
+    </div>
+  </div>
+
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
