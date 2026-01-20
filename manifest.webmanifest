@@ -1,0 +1,8 @@
+{
+  "name": "Trusting Trust Demo",
+  "short_name": "TrustDemo",
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#0b0f0d",
+  "background_color": "#0b0f0d"
+}
