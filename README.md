@@ -1,4 +1,3 @@
-Perfetto. Ecco un README.md pronto (tono divulgativo/difensivo, chiaro, senza parole “trigger” inutili). Copia/incolla così com’è.
 
 # Trusting Trust – PWA Demo (Divulgativa / Difensiva)
 
