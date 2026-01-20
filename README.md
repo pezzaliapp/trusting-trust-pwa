@@ -68,7 +68,3 @@ Licenza / Etica
 
 Questa demo è pensata per scopi educativi e difensivi.
 Qualsiasi uso orientato a danneggiare o ingannare utenti va contro l’intento del progetto.
-
-Se vuoi, posso anche:
-- aggiungere una sezione “**Cosa impari in 60 secondi**” (molto LinkedIn)
-- oppure un mini **FAQ** (“Perché i due file?”, “Perché `ken`?”, “Perché serve il Service Worker?”).
