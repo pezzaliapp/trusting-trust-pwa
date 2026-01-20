@@ -7,19 +7,60 @@
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0b0f0d">
   <style>
-    body { background:#0b0f0d; color:#d7ffdd; font-family:system-ui; margin:0; }
-    .wrap { max-width:900px; margin:auto; padding:20px; }
-    input, button, textarea { width:100%; margin:6px 0; padding:8px; }
-    textarea { height:200px; font-family:monospace; }
-    .row { display:flex; gap:10px; }
-    .row > * { flex:1; }
+    body {
+      background:#0b0f0d;
+      color:#d7ffdd;
+      font-family:system-ui;
+      margin:0;
+    }
+    .wrap {
+      max-width:900px;
+      margin:auto;
+      padding:20px;
+    }
+    input, button, textarea {
+      width:100%;
+      margin:6px 0;
+      padding:8px;
+      font:inherit;
+    }
+    textarea {
+      height:200px;
+      font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+    }
+    .row {
+      display:flex;
+      gap:10px;
+    }
+    .row > * {
+      flex:1;
+    }
+    #status {
+      margin:8px 0;
+      font-weight:600;
+    }
+    .note {
+      opacity:.85;
+      line-height:1.4;
+      font-size:14px;
+      margin-bottom:10px;
+    }
+    .hash {
+      font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+      font-size:12px;
+      opacity:.9;
+      margin:6px 0;
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Trusting Trust – Demo</h1>
-    <p>
-      Se non controlli la toolchain, non controlli il risultato.
+
+    <p class="note">
+      Demo <strong>divulgativa e difensiva</strong>.  
+      Mostra perché non basta leggere il sorgente: è fondamentale verificare
+      <em>ciò che viene realmente eseguito</em> (toolchain, build, supply-chain).
     </p>
 
     <div id="status"></div>
@@ -27,11 +68,18 @@
     <input id="name" placeholder="Scrivi un nome (prova: ken)" />
     <button id="run">Esegui</button>
 
-    <div id="out"></div>
+    <div id="out" class="note"></div>
 
     <hr />
 
     <button id="show">Mostra sorgente vs build</button>
+
+    <div class="hash">
+      <div>SHA-256 app.src.js: <span id="hashSrc">–</span></div>
+      <div>SHA-256 app.js: <span id="hashBuilt">–</span></div>
+      <div id="hashNote">–</div>
+    </div>
+
     <div class="row">
       <textarea id="src" readonly></textarea>
       <textarea id="built" readonly></textarea>
@@ -39,7 +87,9 @@
   </div>
 
   <script>
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
   </script>
   <script src="app.js"></script>
 </body>
