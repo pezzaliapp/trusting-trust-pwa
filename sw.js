@@ -2,7 +2,7 @@
 // Trusting Trust – PWA Demo
 // Gestione cache deterministica per demo divulgativa
 
-const CACHE = "trusting-trust-v1.0.0"; // ⬅️ incrementare a ogni release
+const CACHE = "trusting-trust-v1.0.1"; // ⬅️ incrementare a ogni release
 const ASSETS = [
   "./",
   "./index.html",
