@@ -5,8 +5,8 @@
   const I18N = {
     it: {
       title: "Trusting Trust – Demo",
-      intro:
-        "Demo divulgativa e difensiva. Mostra perché non basta leggere il sorgente: è fondamentale verificare ciò che viene realmente eseguito (toolchain, build, supply-chain).",
+      introHTML:
+        'Demo <strong>divulgativa e difensiva</strong>. Mostra perché non basta leggere il sorgente: è fondamentale verificare <em>ciò che viene realmente eseguito</em> (toolchain, build, supply-chain).',
       run: "Esegui",
       show: "Mostra sorgente vs build",
       placeholder: "Scrivi un nome (prova: ken)",
@@ -20,8 +20,8 @@
     },
     en: {
       title: "Trusting Trust – Demo",
-      intro:
-        "Educational, defensive demo. It shows why reading source code is not enough: you must verify what is actually executed (toolchain, build, supply-chain).",
+      introHTML:
+        'Educational, <strong>defensive</strong> demo. It shows why reading source code is not enough: you must verify <em>what is actually executed</em> (toolchain, build, supply-chain).',
       run: "Run",
       show: "Show source vs build",
       placeholder: "Type a name (try: ken)",
@@ -44,10 +44,13 @@
   function applyLang() {
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
-      // Per i <p> con HTML (strong/em) manteniamo il contenuto già nel DOM:
-      // qui aggiorniamo solo title e bottoni/label semplici.
-      // Se vuoi rendere anche l'intro totalmente dinamico, dimmelo e lo facciamo.
-      if (key === "intro") return;
+
+      // Intro con markup controllato da noi
+      if (key === "intro") {
+        el.innerHTML = t("introHTML");
+        return;
+      }
+
       el.textContent = t(key);
     });
 
@@ -56,8 +59,6 @@
       el.placeholder = t(key);
     });
 
-    // Aggiorna hash labels (sono in span data-i18n quindi ok)
-    // Aggiorna status e eventuali testi già mostrati
     renderStatus();
   }
 
@@ -106,7 +107,6 @@
         $("hashNote").textContent = hSrc === hBuilt ? t("hash_same") : t("hash_diff");
       }
     } catch (e) {
-      // Se crypto non disponibile (raro), non blocchiamo la demo
       if ($("hashNote")) $("hashNote").textContent = "";
     }
   }
@@ -138,8 +138,6 @@
 
     // Applica lingua all'avvio
     applyLang();
-
-    // Status iniziale
     renderStatus();
   });
 })();
@@ -157,7 +155,7 @@
     window.__computeMessage = (name) => {
       const base = original(name);
       if ((name || "").trim().toLowerCase() === "ken") {
-        return base + " [⚠️ modified by build]";
+        return base + " [build-modified]";
       }
       return base;
     };
