@@ -5,8 +5,8 @@
   const I18N = {
     it: {
       title: "Trusting Trust – Demo",
-      intro:
-        "Demo divulgativa e difensiva. Mostra perché non basta leggere il sorgente: è fondamentale verificare ciò che viene realmente eseguito (toolchain, build, supply-chain).",
+      introHTML:
+        'Demo <strong>divulgativa e difensiva</strong>. Mostra perché non basta leggere il sorgente: è fondamentale verificare <em>ciò che viene realmente eseguito</em> (toolchain, build, supply-chain).',
       run: "Esegui",
       show: "Mostra sorgente vs build",
       placeholder: "Scrivi un nome (prova: ken)",
@@ -20,8 +20,8 @@
     },
     en: {
       title: "Trusting Trust – Demo",
-      intro:
-        "Educational, defensive demo. It shows why reading source code is not enough: you must verify what is actually executed (toolchain, build, supply-chain).",
+      introHTML:
+        'Educational, <strong>defensive</strong> demo. It shows why reading source code is not enough: you must verify <em>what is actually executed</em> (toolchain, build, supply-chain).',
       run: "Run",
       show: "Show source vs build",
       placeholder: "Type a name (try: ken)",
@@ -44,9 +44,13 @@
   function applyLang() {
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
-      // L'intro nel tuo index.html contiene HTML (<strong>/<em>).
-      // Per non romperlo, non lo sovrascriviamo qui.
-      if (key === "intro") return;
+
+      // Intro con markup controllato da noi
+      if (key === "intro") {
+        el.innerHTML = t("introHTML");
+        return;
+      }
+
       el.textContent = t(key);
     });
 
@@ -110,7 +114,7 @@
   }
 
   window.addEventListener("DOMContentLoaded", () => {
-    // Bottoni lingua (presenti in index.html)
+    // Bottoni lingua
     const itBtn = $("lang-it");
     const enBtn = $("lang-en");
 
