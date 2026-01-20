@@ -1,4 +1,8 @@
-const CACHE = "trusting-trust-v2"; // ⬅️ incrementa ad ogni release
+// sw.js — Service Worker
+// Trusting Trust – PWA Demo
+// Gestione cache deterministica per demo divulgativa
+
+const CACHE = "trusting-trust-v1.0.0"; // ⬅️ incrementare a ogni release
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,27 +12,33 @@ const ASSETS = [
   "./manifest.webmanifest"
 ];
 
-self.addEventListener("install", e => {
+// Installazione: cache iniziale
+self.addEventListener("install", (e) => {
   e.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE).then((cache) => cache.addAll(ASSETS))
   );
   self.skipWaiting();
 });
 
-self.addEventListener("activate", e => {
-  // Rimuove cache vecchie
+// Attivazione: pulizia cache obsolete
+self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((key) => key !== CACHE)
+          .map((key) => caches.delete(key))
+      )
     )
   );
   self.clients.claim();
 });
 
-self.addEventListener("fetch", e => {
+// Fetch: cache-first, fallback network
+self.addEventListener("fetch", (e) => {
   e.respondWith(
-    caches.match(e.request).then(
-      r => r || fetch(e.request)
-    )
+    caches.match(e.request).then((cached) => {
+      return cached || fetch(e.request);
+    })
   );
 });
