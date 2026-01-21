@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "name": "trusting-trust-pwa",
+    "version": "v1.0.0",
+    "note": "Educational demo. Hashes are declarative."
+  },
+  "files": {
+    "index.html": "",
+    "app.js": "",
+    "app.src.js": "",
+    "sw.js": "",
+    "manifest.webmanifest": ""
+  }
+}
