@@ -1,0 +1,52 @@
+name: Build + Sign integrity
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build_sign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build (app.js + integrity.json)
+        run: node build.js
+
+      - name: Sign integrity.json (Ed25519)
+        env:
+          ED25519_PRIVATE_KEY_PEM: ${{ secrets.ED25519_PRIVATE_KEY_PEM }}
+        run: |
+          node - <<'NODE'
+          const fs = require("fs");
+          const crypto = require("crypto");
+
+          const privPem = process.env.ED25519_PRIVATE_KEY_PEM;
+          if (!privPem) {
+            console.error("Missing secret ED25519_PRIVATE_KEY_PEM");
+            process.exit(1);
+          }
+
+          const msg = fs.readFileSync("integrity.json");
+          const sig = crypto.sign(null, msg, privPem); // Ed25519
+          fs.writeFileSync("integrity.sig", sig.toString("base64") + "\n", "utf8");
+          console.log("✅ integrity.sig generated");
+          NODE
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add app.js integrity.json integrity.sig
+          git commit -m "ci: build + sign integrity" || echo "No changes to commit"
+          git push
